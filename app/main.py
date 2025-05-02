@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
 from elasticsearch import Elasticsearch
+import os
 
 app = Flask(__name__)
 
 # es = Elasticsearch("http://elasticsearch:9200", basic_auth=("elastic", "admin123"))
-es = Elasticsearch("http://elasticsearch:9200")
+# es = Elasticsearch("http://elasticsearch:9200")
+es = Elasticsearch("http://10.104.9.115:5050/")
+
 
 @app.route('/')
 def hello_world():
@@ -82,4 +85,5 @@ def get_all_documents():
         return jsonify({"error": f"Error fetching documents: {str(e)}"}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5050)
+    port = int(os.environ.get("PORT", 5050))
+    app.run(host="0.0.0.0", port=port)  

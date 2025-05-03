@@ -5,8 +5,10 @@ import os
 app = Flask(__name__)
 
 # es = Elasticsearch("http://elasticsearch:9200", basic_auth=("elastic", "admin123"))
-es = Elasticsearch("http://elasticsearch:9200")
+# es = Elasticsearch("http://elasticsearch:9200")
 # es = Elasticsearch("http://10.104.9.115:5050/")
+es = Elasticsearch(os.environ.get("ES_URL", "http://localhost:9200"))
+
 
 
 @app.route('/')
